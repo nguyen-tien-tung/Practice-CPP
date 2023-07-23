@@ -1,10 +1,10 @@
 #pragma once
 
-namespace myVector {
+namespace MyVector {
   template<class T> class TungVector{
-    static const int MIN_CAPACITY = 16;
-    static const int GROWTH_FACTOR = 2;
-    static const int SHRINK_FACTOR = 4;
+    static const int MIN_CAPACITY;
+    static const int GROWTH_FACTOR;
+    static const int SHRINK_FACTOR;
 
     std::unique_ptr<T[]> _arr;
     int _capacity;

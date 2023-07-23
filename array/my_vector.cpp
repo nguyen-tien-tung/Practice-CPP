@@ -4,7 +4,14 @@
 
 using namespace std;
 
-namespace myVector {
+namespace MyVector {
+
+  template<class T>
+  static const int TungVector<T>::MIN_CAPACITY = 16;
+  template<class T>
+  static const int TungVector<T>::GROWTH_FACTOR = 2;
+  template<class T>
+  static const int TungVector<T>::SHRINK_FACTOR = 4;
 
   template<class T>
   TungVector<T>::TungVector(T array[]) {
