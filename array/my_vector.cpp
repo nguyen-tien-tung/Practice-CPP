@@ -14,10 +14,8 @@ namespace MyVector {
   static const int TungVector<T>::SHRINK_FACTOR = 4;
 
   template<class T>
-  TungVector<T>::TungVector(T array[]) {
+  TungVector<T>::TungVector(T array[]) : _size(array.length()), _capacity(MIN_CAPACITY) {
     // make_unique _arr and assign array values
-    _capacity = MIN_CAPACITY;
-    _size = array.length();
     resizeArray(_size);
     for (int i = 0; i < array.length(); i++){
       *(_arr + i) = array[i];
@@ -25,9 +23,7 @@ namespace MyVector {
   }
 
   template<class T>
-  TungVector<T>::TungVector(int wantedCapacity) {
-    _capacity = MIN_CAPACITY;
-    _size = 0;
+  TungVector<T>::TungVector(int wantedCapacity) : _size(0), _capacity(MIN_CAPACITY) {
     resizeArray(wantedCapacity);
   }
 
