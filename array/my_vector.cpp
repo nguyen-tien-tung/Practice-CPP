@@ -7,18 +7,18 @@ using namespace std;
 namespace MyVector {
 
   template<class T>
-  static const int TungVector<T>::MIN_CAPACITY = 16;
+  const int TungVector<T>::MIN_CAPACITY = 16;
   template<class T>
-  static const int TungVector<T>::GROWTH_FACTOR = 2;
+  const int TungVector<T>::GROWTH_FACTOR = 2;
   template<class T>
-  static const int TungVector<T>::SHRINK_FACTOR = 4;
+  const int TungVector<T>::SHRINK_FACTOR = 4;
 
   template<class T>
   TungVector<T>::TungVector(T array[]) : _size(array.length()), _capacity(MIN_CAPACITY) {
-    // make_unique _arr and assign array values
+    // make_shared _arr and assign array values
     resizeArray(_size);
     for (int i = 0; i < array.length(); i++){
-      *(_arr + i) = array[i];
+      _arr[i] = array[i];
     }
   }
 
@@ -37,10 +37,10 @@ namespace MyVector {
       while(_capacity / SHRINK_FACTOR > wantedCapacity){
         _capacity = _capacity / SHRINK_FACTOR;
       }
-      std::unique_ptr<T[]> newArr = std::make_unique<T[]>(_capacity);
+      std::shared_ptr<T[]> newArr(new T[_capacity] {0});
       for (int i = 0; i < _capacity; i++)
       {
-        *(newArr + i) = *(_arr + i);
+        newArr[i] = _arr[i];
       }
       _arr = newArr;
     }
@@ -51,10 +51,10 @@ namespace MyVector {
       }
       int oldCapacity = _capacity;
       _capacity = MIN_CAPACITY * GROWTH_FACTOR * i;
-      std::unique_ptr<T[]> newArr = std::make_unique<T[]>(_capacity);
+      std::shared_ptr<T[]> newArr(new T[_capacity] {0});
       for (int i = 0; i < oldCapacity; i++)
       {
-        *(newArr + i) = *(_arr + i);
+        newArr[i] = _arr[i];
       }
       _arr = newArr;
     }
@@ -81,7 +81,7 @@ namespace MyVector {
   T TungVector<T>::pop(){
     T res = *(_arr + _size);
     *(_arr + _size) = NULL;
-    resizeArray(_size - 1)
+    resizeArray(_size - 1);
     return res;
   }
 
@@ -91,8 +91,8 @@ namespace MyVector {
     T temp = x;
     for (int i = 0; i < _size + 1; i++)
     {
-      T currentValue = *(_arr + i);
-      *(_arr + i) = temp;
+      T currentValue = _arr[i];
+      _arr[i] = temp;
       temp = currentValue;
     }
   }
@@ -104,8 +104,8 @@ namespace MyVector {
     resizeArray(_size + 1);
     T temp = value;
     for (int i = index + 1; i < _size + 1; i++){
-      T currentValue = *(_arr + i);
-      *(_arr + i) = temp;
+      T currentValue = _arr[i];
+      _arr[i] = temp;
       temp = currentValue;
     }
   }
@@ -113,7 +113,7 @@ namespace MyVector {
   template<class T>
   void TungVector<T>::remove(int index){
     for (int i = index; i < _size - 1; i ++){
-      *(_arr + i) = *(_arr + i + 1);
+      _arr[i] = *(_arr + i + 1);
     }
     resizeArray(_size - 1);
   }
@@ -126,14 +126,11 @@ namespace MyVector {
   template<class T>
   // ! Only work with types comparable by "==" sign
   int TungVector<T>::find(T value){
-    for (const i = 0; i < _size; i++){
-      if(*(_arr + i) == value){
+    for (int i = 0; i < _size; i++){
+      if(_arr[i] == value){
         return i;
       }
     }
     return -1;
   }
-}
-
-int main(){
 }

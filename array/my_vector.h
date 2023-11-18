@@ -7,7 +7,7 @@ namespace MyVector {
     static const int GROWTH_FACTOR;
     static const int SHRINK_FACTOR;
 
-    std::unique_ptr<T[]> _arr;
+    std::shared_ptr<T[]> _arr;
     int _capacity;
     int _size;
   public:

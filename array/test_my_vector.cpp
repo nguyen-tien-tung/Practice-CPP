@@ -1,4 +1,5 @@
 #include<cassert>
+#include<iostream>
 #include "test_my_vector.h"
 #include "my_vector.h"
 namespace MyVector {
