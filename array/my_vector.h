@@ -18,6 +18,7 @@ namespace MyVector {
 
     int getSize();
     int getCapacity();
+    bool isEmpty();
     void push(T x);
     T pop();
     void prepend(T x);

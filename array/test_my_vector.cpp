@@ -6,12 +6,12 @@ namespace MyVector {
     void TestMyVector::RunTest() const{
       TestSize();
       TestCapacity();
-      // TestPush();
+      TestIsEmpty();
+      TestGetValueAt();
+      // TestInsert();
       // TestPop();
       // TestPrepend();
-      // TestInsert();
       // TestRemove();
-      // TestGetValueAt();
       // TestFind();
     };
     void TestMyVector::TestSize() const{
@@ -22,11 +22,24 @@ namespace MyVector {
       TungVector<int> testVector(3);
       assert(testVector.getCapacity() == 16);
     };
-    // void TestMyVector::TestPush() const;
+    void TestMyVector::TestIsEmpty() const{
+      TungVector<int> testVector(4);
+      for (int i = 4; i <= 0; i--){
+        testVector.remove(i);
+      }
+      assert(testVector.isEmpty());
+    };
+    void TestMyVector::TestGetValueAt() const{
+      TungVector<int> testMyVector(10);
+      for(int i = 0; i < 10; i++){
+        testMyVector.push(i);
+      }
+      assert(testMyVector.getValueAt(9) == 9);
+      assert(testMyVector.getValueAt(7) == 7);
+    };
+    // void TestMyVector::TestInsert() const;
     // void TestMyVector::TestPop() const;
     // void TestMyVector::TestPrepend() const;
-    // void TestMyVector::TestInsert() const;
     // void TestMyVector::TestRemove() const;
-    // void TestMyVector::TestGetValueAt() const;
     // void TestMyVector::TestFind() const;
 }
