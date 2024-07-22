@@ -31,8 +31,9 @@ namespace MyVector {
 
   template<class T>
   void TungVector<T>::resizeArray(int wantedCapacity){
-    if(wantedCapacity <= MIN_CAPACITY || wantedCapacity == _capacity || wantedCapacity >= _capacity / SHRINK_FACTOR)
-    // * No need to shrink
+    cout << "resizeArray: " << wantedCapacity << " current capacity :" << _capacity << endl;
+    if(wantedCapacity <= MIN_CAPACITY || ((wantedCapacity >= _capacity / SHRINK_FACTOR) && (wantedCapacity <= _capacity)))
+    // * No need to shrink or grow
       return;
     else if (wantedCapacity < _capacity){
       // * Shrink by SHRINK_FACTOR
@@ -55,6 +56,7 @@ namespace MyVector {
       }
       int oldCapacity = _capacity;
       _capacity = MIN_CAPACITY * GROWTH_FACTOR * i;
+      cout << "Capacity After Growing: " << _capacity << endl;
       std::shared_ptr<T[]> newArr(new T[_capacity] {0}, std::default_delete<T[]>());
       for (int i = 0; i < oldCapacity; i++)
       {
@@ -109,12 +111,12 @@ namespace MyVector {
 
   template <class T>
   void TungVector<T>::insert(int index, T value){
-    if (index >= _size || index < 0)
+    if (index > _size || index < 0)
       return;
     
     resizeArray(_size + 1);
     T temp = value;
-    for (int i = index + 1; i < _size + 1; i++){
+    for (int i = index; i < _size + 1; i++){
       T currentValue = _arr.get()[i];
       _arr.get()[i] = temp;
       temp = currentValue;
