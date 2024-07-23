@@ -13,7 +13,6 @@ namespace MyVector {
       // TestPrepend();
       // TestRemove();
       // TestFind();
-      std::cout << "hehe\n\n" << std::endl;
     };
     void TestMyVector::TestSize() const{
       TungVector<int> testVector(3);
@@ -51,9 +50,10 @@ namespace MyVector {
       assert(testVector.getValueAt(15) == 24);
       assert(testVector.getValueAt(16) == 22);
       assert(testVector.getValueAt(17) == 14);
-      for (int i = 0; i < 32; i++){
-        std::cout << testVector.getValueAt(i) << std::endl;
-      }
+      // std::cout << "hihihaha" << std::endl;
+      // for (int i = 0; i < 32; i++){
+      //   std::cout << testVector.getValueAt(i) << std::endl;
+      // }
     };
     // void TestMyVector::TestPop() const;
     // void TestMyVector::TestPrepend() const;

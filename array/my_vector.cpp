@@ -31,7 +31,6 @@ namespace MyVector {
 
   template<class T>
   void TungVector<T>::resizeArray(int wantedCapacity){
-    cout << "resizeArray: " << wantedCapacity << " current capacity :" << _capacity << endl;
     if(wantedCapacity <= MIN_CAPACITY || ((wantedCapacity >= _capacity / SHRINK_FACTOR) && (wantedCapacity <= _capacity)))
     // * No need to shrink or grow
       return;
@@ -56,7 +55,6 @@ namespace MyVector {
       }
       int oldCapacity = _capacity;
       _capacity = MIN_CAPACITY * GROWTH_FACTOR * i;
-      cout << "Capacity After Growing: " << _capacity << endl;
       std::shared_ptr<T[]> newArr(new T[_capacity] {0}, std::default_delete<T[]>());
       for (int i = 0; i < oldCapacity; i++)
       {
