@@ -27,12 +27,16 @@ namespace MyVector {
   TungVector<T>::TungVector(int wantedCapacity) : _size(0), _capacity(MIN_CAPACITY) {
     _arr = std::shared_ptr<T[]>(new T[_capacity] {0}, std::default_delete<T[]>());
     resizeArray(wantedCapacity);
+    _size = wantedCapacity;
   }
 
   template<class T>
   void TungVector<T>::resizeArray(int wantedCapacity){
+    cout << "resizeArray with wantedCapacity: " << wantedCapacity << endl;
+    cout << "resizeArray with MIN_CAPACITY: " << MIN_CAPACITY << endl;
+    cout << "resizeArray with SHRINK_FACTOR: " << SHRINK_FACTOR << endl;
+    cout << "resizeArray with _capacity: " << _capacity << endl;
     if(wantedCapacity <= MIN_CAPACITY || ((wantedCapacity >= _capacity / SHRINK_FACTOR) && (wantedCapacity <= _capacity)))
-    // * No need to shrink or grow
       return;
     else if (wantedCapacity < _capacity){
       // * Shrink by SHRINK_FACTOR
@@ -62,7 +66,6 @@ namespace MyVector {
       }
       _arr = newArr;
     }
-    _size = wantedCapacity;
   }
 
   template<class T>
@@ -89,9 +92,10 @@ namespace MyVector {
 
   template<class T>
   T TungVector<T>::pop(){
-    T res = *(_arr + _size);
-    *(_arr + _size) = NULL;
+    T res = _arr.get()[_size];
+    _arr.get()[_size] = T();
     resizeArray(_size - 1);
+    _size--;
     return res;
   }
 
@@ -105,6 +109,7 @@ namespace MyVector {
       _arr.get()[i] = temp;
       temp = currentValue;
     }
+    _size++;
   }
 
   template <class T>
@@ -124,16 +129,20 @@ namespace MyVector {
 
   template<class T>
   void TungVector<T>::remove(int index){
+    cout << "REMOVE !!!!!!!" << endl;
     for (int i = index; i < _size - 1; i ++){
       _arr.get()[i] = _arr.get()[i + 1];
     }
     resizeArray(_size - 1);
+    _size--;
+    cout << "SIZE AFTER RM: " << _size << endl;
   }
 
   template<class T>
   T TungVector<T>::getValueAt(int index){
     if(index >= _size || index < 0)
       throw std::out_of_range("Index out of range");
+    cout << "VALUE AT " << index << " :" << _arr.get()[index] << endl;
     return _arr.get()[index];
   }
 
