@@ -14,13 +14,17 @@ namespace MyVector {
   const int TungVector<T>::SHRINK_FACTOR = 4;
 
   template<class T>
-  TungVector<T>::TungVector(T array[]) : _size(array.length()), _capacity(MIN_CAPACITY) {
+  template<size_t N>
+  TungVector<T>::TungVector(T (&array)[N]) : _size(N), _capacity(MIN_CAPACITY) {
     // make_shared _arr and assign array values
+    cout << "INITIALIZE VECTOR..." << endl;
+    cout << N << endl;
     _arr = std::shared_ptr<T[]>(new T[_capacity] {0}, std::default_delete<T[]>());
     resizeArray(_size);
-    for (int i = 0; i < array.length(); i++){
+    for (int i = 0; i < N; i++){
       _arr.get()[i] = array[i];
     }
+    _size = N;
   }
 
   template<class T>
@@ -32,24 +36,20 @@ namespace MyVector {
 
   template<class T>
   void TungVector<T>::resizeArray(int wantedCapacity){
-    cout << "resizeArray with wantedCapacity: " << wantedCapacity << endl;
-    cout << "resizeArray with MIN_CAPACITY: " << MIN_CAPACITY << endl;
-    cout << "resizeArray with SHRINK_FACTOR: " << SHRINK_FACTOR << endl;
-    cout << "resizeArray with _capacity: " << _capacity << endl;
     if(wantedCapacity <= MIN_CAPACITY || ((wantedCapacity >= _capacity / SHRINK_FACTOR) && (wantedCapacity <= _capacity)))
       return;
     else if (wantedCapacity < _capacity){
       // * Shrink by SHRINK_FACTOR
-      cout << "Shrink" << endl;
-      while(_capacity / SHRINK_FACTOR > wantedCapacity){
+      if(wantedCapacity < _capacity / SHRINK_FACTOR){
+        cout << "Shrink" << endl;
         _capacity = _capacity / SHRINK_FACTOR;
+        std::shared_ptr<T[]> newArr(new T[_capacity] {0}, std::default_delete<T[]>());
+        for (int i = 0; i < _capacity; i++)
+        {
+          newArr.get()[i] = _arr.get()[i];
+        }
+        _arr = newArr;
       }
-      std::shared_ptr<T[]> newArr(new T[_capacity] {0}, std::default_delete<T[]>());
-      for (int i = 0; i < _capacity; i++)
-      {
-        newArr.get()[i] = _arr.get()[i];
-      }
-      _arr = newArr;
     }
     else {
       // * Need to grow by GROW_FACTOR
@@ -128,7 +128,7 @@ namespace MyVector {
   }
 
   template<class T>
-  void TungVector<T>::remove(int index){
+  void TungVector<T>::deleteAt(int index){
     cout << "REMOVE !!!!!!!" << endl;
     for (int i = index; i < _size - 1; i ++){
       _arr.get()[i] = _arr.get()[i + 1];

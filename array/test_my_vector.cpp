@@ -10,7 +10,7 @@ namespace MyVector {
       TestGetValueAt();
       TestInsert();
       TestPop();
-      // TestPrepend();
+      TestDelete();
       // TestRemove();
       // TestFind();
     };
@@ -29,7 +29,7 @@ namespace MyVector {
     void TestMyVector::TestIsEmpty() const{
       TungVector<int> testVector(4);
       for (int i = 3; i >= 0; i--){
-        testVector.remove(i);
+        testVector.deleteAt(i);
       }
       assert(testVector.isEmpty());
     };
@@ -70,6 +70,14 @@ namespace MyVector {
       assert(x == 0);
       assert(y == 25);
       assert(testVector.getSize() == 18);
+    };
+    void TestMyVector::TestDelete() const {
+      int arr[5] = {0, 1, 2, 3, 4};
+      TungVector<int> testVector(arr);
+      testVector.deleteAt(2);
+      assert(testVector.getSize() == 4);
+      assert(testVector.getValueAt(2) == 3);
+      assert(testVector.getValueAt(3) == 4);
     };
     // void TestMyVector::TestRemove() const;
     // void TestMyVector::TestFind() const;

@@ -11,7 +11,8 @@ namespace MyVector {
     int _capacity;
     int _size;
   public:
-    TungVector(T array[]);
+    template<size_t N>
+    TungVector(T (&array)[N]);
     TungVector(int capacity);
 
     void resizeArray(int wantedCapacity);
@@ -23,7 +24,7 @@ namespace MyVector {
     T pop();
     void prepend(T x);
     void insert(int index, T value);
-    void remove(int index);
+    void deleteAt(int index);
     T getValueAt(int index);
     int find(T value);
   };

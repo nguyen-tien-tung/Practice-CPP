@@ -8,9 +8,9 @@ namespace MyVector {
     void TestCapacity() const;
     void TestIsEmpty() const;
     void TestGetValueAt() const;
-    // void TestPush() const;
     void TestPop() const;
     void TestInsert() const;
+    void TestDelete() const;
     // void TestRemove() const;
     // void TestFind() const;
   };
