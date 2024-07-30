@@ -139,6 +139,29 @@ namespace MyVector {
   }
 
   template<class T>
+  void TungVector<T>::remove(T value) {
+    std::shared_ptr<T[]> newArray(new T[_capacity]);
+    int size = 0;
+    int initialSize = _size;
+    std::cout << "OG SIZE: " << _size << std::endl;
+    for (int i = 0; i < initialSize; i++) {
+      if (_arr.get()[i] != value) {
+        newArray.get()[size] = _arr.get()[i];
+        size++;
+      }else {
+        _size--;
+      }
+    }
+    _arr = newArray;
+    std::cout << "HAHAHA" << std::endl;
+    for (int i = 0; i < _capacity; i++){
+      std::cout << _arr.get()[i] << std::endl;
+    }
+    resizeArray(size + 1);
+    std::cout << "new SIZE: " << _size << std::endl;
+  }
+
+  template<class T>
   T TungVector<T>::getValueAt(int index){
     if(index >= _size || index < 0)
       throw std::out_of_range("Index out of range");

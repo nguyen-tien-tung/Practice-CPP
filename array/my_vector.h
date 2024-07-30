@@ -25,6 +25,7 @@ namespace MyVector {
     void prepend(T x);
     void insert(int index, T value);
     void deleteAt(int index);
+    void remove(T value);
     T getValueAt(int index);
     int find(T value);
   };
