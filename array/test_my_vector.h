@@ -12,6 +12,6 @@ namespace MyVector {
     void TestInsert() const;
     void TestDelete() const;
     void TestRemove() const;
-    // void TestFind() const;
+    void TestFind() const;
   };
 }

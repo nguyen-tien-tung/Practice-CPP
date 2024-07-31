@@ -12,7 +12,7 @@ namespace MyVector {
       TestPop();
       TestDelete();
       TestRemove();
-      // TestFind();
+      TestFind();
     };
     void TestMyVector::TestSize() const{
       TungVector<int> testVector(3);
@@ -88,5 +88,12 @@ namespace MyVector {
       assert(testVector.getValueAt(3) == 4);
       assert(testVector.getValueAt(4) == 5);
     };
-    // void TestMyVector::TestFind() const;
+    void TestMyVector::TestFind() const{
+      int arr[9] = {0, 1, 2, 3, 4, 5, 6, 7, 9};
+      TungVector<int> testVector(arr);
+      assert(testVector.find(2) == 2);
+      assert(testVector.find(5) == 5);
+      assert(testVector.find(9) == 8);
+      assert(testVector.find(8) == -1);
+    };
 }

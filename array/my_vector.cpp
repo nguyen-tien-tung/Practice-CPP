@@ -153,7 +153,6 @@ namespace MyVector {
       }
     }
     _arr = newArray;
-    std::cout << "HAHAHA" << std::endl;
     for (int i = 0; i < _capacity; i++){
       std::cout << _arr.get()[i] << std::endl;
     }
